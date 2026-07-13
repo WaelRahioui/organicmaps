@@ -95,14 +95,14 @@ highway-trunk-tunnel::shield                        # shield::shield z10- (also 
 === 6740
 
 boundary-aboriginal_lands                           # caption z8-16 (also has line z8-, area z8-16)
-boundary-national_park                              # icon z10-17 and caption z8-9 (also has caption(optional) z11-17, line z8-, area z8-17)
+boundary-national_park                              # icon z10-17 and caption z8-9 and pathtext z13- (also has caption(optional) z11-12, line z8-, area z8-17)
 boundary-protected_area                             # icon z10-17 (also has caption(optional) z11-17)
-boundary-protected_area-1                           # icon z10-17 and caption z8-9 (also has caption(optional) z11-17, line z8-, area z8-17)
+boundary-protected_area-1                           # icon z10-17 and caption z8-9 and pathtext z13- (also has caption(optional) z11-12, line z8-, area z8-17)
 boundary-protected_area-2                           # icon z10-17 (also has caption(optional) z11-17)
 boundary-protected_area-3                           # icon z10-17 (also has caption(optional) z11-17)
 boundary-protected_area-4                           # icon z10-17 (also has caption(optional) z11-17)
 boundary-protected_area-5                           # icon z10-17 (also has caption(optional) z11-17)
-boundary-protected_area-6                           # icon z10-17 (also has caption(optional) z11-17)
+boundary-protected_area-6                           # icon z10-17 and pathtext z13- (also has caption(optional) z11-12, line z8-)
 leisure-nature_reserve                              # icon z10-17 and caption z9 (also has caption(optional) z11-17, area z8-17)
 === 6700
 
@@ -1354,14 +1354,14 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # railway-station                                   # caption(optional) z12- (also has icon z12-)
 # === -3200
 
-# boundary-national_park                            # caption(optional) z11-17 (also has icon z10-17, caption z8-9, line z8-, area z8-17)
+# boundary-national_park                            # caption(optional) z11-12 (also has icon z10-17, caption z8-9, pathtext z13-, line z8-, area z8-17)
 # boundary-protected_area                           # caption(optional) z11-17 (also has icon z10-17)
-# boundary-protected_area-1                         # caption(optional) z11-17 (also has icon z10-17, caption z8-9, line z8-, area z8-17)
+# boundary-protected_area-1                         # caption(optional) z11-12 (also has icon z10-17, caption z8-9, pathtext z13-, line z8-, area z8-17)
 # boundary-protected_area-2                         # caption(optional) z11-17 (also has icon z10-17)
 # boundary-protected_area-3                         # caption(optional) z11-17 (also has icon z10-17)
 # boundary-protected_area-4                         # caption(optional) z11-17 (also has icon z10-17)
 # boundary-protected_area-5                         # caption(optional) z11-17 (also has icon z10-17)
-# boundary-protected_area-6                         # caption(optional) z11-17 (also has icon z10-17)
+# boundary-protected_area-6                         # caption(optional) z11-12 (also has icon z10-17, pathtext z13-, line z8-)
 # leisure-nature_reserve                            # caption(optional) z11-17 (also has icon z10-17, caption z9, area z8-17)
 # === -3300
 

@@ -96,9 +96,12 @@ area|z9[leisure=nature_reserve],
 {text: name; font-size: 10; text-color: @park_label;}
 
 /* Draw the protected-area name ALONG its boundary (OSM-style) so it stays readable near
-   the border and when zoomed in, not only as a single centered label that caps at z17. */
+   the border and when zoomed in, not only as a single centered label that caps at z17.
+   Only types that have a boundary line qualify (national_park, protect_class=1 and =6),
+   otherwise the style compiler rejects "pathtext without line". */
 line|z13-[boundary=national_park],
-line|z13-[boundary=protected_area],
+line|z13-[boundary=protected_area][protect_class=1],
+line|z13-[boundary=protected_area][protect_class=6],
 {text: name; text-position: line; font-size: 10; text-color: @park_label; text-halo-radius: 1; text-halo-opacity: 0.8; text-halo-color: @label_halo_light;}
 
 area|z8-16[boundary=aboriginal_lands],

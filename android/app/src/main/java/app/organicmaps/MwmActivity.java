@@ -59,7 +59,6 @@ import app.organicmaps.downloader.OnmapDownloader;
 import app.organicmaps.editor.EditorActivity;
 import app.organicmaps.editor.FeatureCategoryActivity;
 import app.organicmaps.editor.OsmLoginActivity;
-import app.organicmaps.help.HelpActivity;
 import app.organicmaps.intent.Factory;
 import app.organicmaps.intent.IntentProcessor;
 import app.organicmaps.location.TrackRecordingService;
@@ -349,12 +348,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void showBookmarks()
   {
     BookmarkCategoriesActivity.start(this);
-  }
-
-  private void showHelp()
-  {
-    Intent intent = new Intent(this, HelpActivity.class);
-    startActivity(intent);
   }
 
   public void showSearch(String query)
@@ -728,7 +721,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       closeFloatingPanels();
       showBottomSheet(MAIN_MENU_ID);
     }
-    case help -> showHelp();
     case trackRecordingStatus -> toggleTrackRecordingPP();
     }
   }
@@ -1949,14 +1941,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     stopTrackRecording();
   }
 
-  private void onTrackRecordingOptionSelected()
-  {
-    if (TrackRecorder.nativeIsTrackRecordingEnabled())
-      toggleTrackRecordingPP();
-    else
-      startTrackRecording();
-  }
-
   private void toggleTrackRecordingPP()
   {
     if (mPlacePageViewModel.getMapObject().getValue() != null
@@ -1986,8 +1970,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       items.add(new MenuBottomSheetItem(R.string.download_maps, R.drawable.ic_download, getDownloadMapsCounter(),
                                         this::onDownloadMapsOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.settings, R.drawable.ic_settings, this::onSettingsOptionSelected));
-      items.add(new MenuBottomSheetItem(R.string.start_track_recording, R.drawable.ic_track_recording_off, -1,
-                                        this::onTrackRecordingOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.share_my_location, R.drawable.ic_share,
                                         this::onShareLocationOptionSelected));
       return items;

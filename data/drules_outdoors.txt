@@ -4140,33 +4140,36 @@ type boundary-national_park
     line width=1 color=c128 join=round cap=butt priority=20
     area color=c130 priority=20
     symbol name=nparkf-outline-m priority=6700 min_distance=12
-    caption primary[height=11 color=c129 stroke=c088 dy=1 optional] priority=-3300
+    path_text primary[height=11 color=c129 stroke=c088 dy=1] priority=6700
   z14
     line width=1 color=c128 join=round cap=butt priority=20
     area color=c130 priority=20
     symbol name=nparkf-outline-m priority=6700 min_distance=12
-    caption primary[height=11 color=c129 stroke=c088 dy=1 optional] priority=-3300
+    path_text primary[height=11 color=c129 stroke=c088 dy=1] priority=6700
   z15
     line width=1 color=c128 join=round cap=butt priority=20
     area color=c130 priority=20
     symbol name=nparkf-outline-m priority=6700
-    caption primary[height=11 color=c129 stroke=c088 dy=1 optional] priority=-3300
+    path_text primary[height=11 color=c129 stroke=c088 dy=1] priority=6700
   z16
     line width=1 color=c128 join=round cap=round priority=20
     area color=c130 priority=20
     symbol name=nparkf-outline-m priority=6700
-    caption primary[height=11 color=c129 stroke=c088 dy=1 optional] priority=-3300
+    path_text primary[height=11 color=c129 stroke=c088 dy=1] priority=6700
   z17
     line width=1 color=c128 join=round cap=round priority=20
     area color=c130 priority=20
     symbol name=nparkf-outline-m priority=6700
-    caption primary[height=12 color=c129 stroke=c088 dy=1 optional] priority=-3300
+    path_text primary[height=12 color=c129 stroke=c088 dy=1] priority=6700
   z18
     line width=1 color=c128 join=round cap=round priority=20
+    path_text primary[height=10 color=c129 stroke=c087] priority=6700
   z19
     line width=1 color=c128 join=round cap=round priority=20
+    path_text primary[height=10 color=c129 stroke=c087] priority=6700
   z20
     line width=1 color=c128 join=round cap=round priority=20
+    path_text primary[height=10 color=c129 stroke=c087] priority=6700
 type boundary-protected_area
   z10
     symbol name=nparkf-outline-s priority=6700
@@ -4218,33 +4221,36 @@ type boundary-protected_area-1
     line width=1 color=c128 join=round cap=butt priority=20
     area color=c130 priority=20
     symbol name=nparkf-outline-m priority=6700 min_distance=12
-    caption primary[height=11 color=c129 stroke=c088 dy=1 optional] priority=-3300
+    path_text primary[height=11 color=c129 stroke=c088 dy=1] priority=6700
   z14
     line width=1 color=c128 join=round cap=butt priority=20
     area color=c130 priority=20
     symbol name=nparkf-outline-m priority=6700 min_distance=12
-    caption primary[height=11 color=c129 stroke=c088 dy=1 optional] priority=-3300
+    path_text primary[height=11 color=c129 stroke=c088 dy=1] priority=6700
   z15
     line width=1 color=c128 join=round cap=butt priority=20
     area color=c130 priority=20
     symbol name=nparkf-outline-m priority=6700
-    caption primary[height=11 color=c129 stroke=c088 dy=1 optional] priority=-3300
+    path_text primary[height=11 color=c129 stroke=c088 dy=1] priority=6700
   z16
     line width=1 color=c128 join=round cap=round priority=20
     area color=c130 priority=20
     symbol name=nparkf-outline-m priority=6700
-    caption primary[height=11 color=c129 stroke=c088 dy=1 optional] priority=-3300
+    path_text primary[height=11 color=c129 stroke=c088 dy=1] priority=6700
   z17
     line width=1 color=c128 join=round cap=round priority=20
     area color=c130 priority=20
     symbol name=nparkf-outline-m priority=6700
-    caption primary[height=12 color=c129 stroke=c088 dy=1 optional] priority=-3300
+    path_text primary[height=12 color=c129 stroke=c088 dy=1] priority=6700
   z18
     line width=1 color=c128 join=round cap=round priority=20
+    path_text primary[height=10 color=c129 stroke=c087] priority=6700
   z19
     line width=1 color=c128 join=round cap=round priority=20
+    path_text primary[height=10 color=c129 stroke=c087] priority=6700
   z20
     line width=1 color=c128 join=round cap=round priority=20
+    path_text primary[height=10 color=c129 stroke=c087] priority=6700
 type boundary-protected_area-2
   z10
     symbol name=nparkf-outline-s priority=6700
@@ -4342,29 +4348,50 @@ type boundary-protected_area-5
     symbol name=nparkf-outline-m priority=6700
     caption primary[height=12 color=c129 stroke=c088 dy=1 optional] priority=-3300
 type boundary-protected_area-6
+  z8
+    line width=1 color=c128 join=bevel cap=butt priority=20
+  z9
+    line width=1 color=c128 join=bevel cap=butt priority=20
   z10
+    line width=1 color=c128 join=bevel cap=butt priority=20
     symbol name=nparkf-outline-s priority=6700
   z11
+    line width=1 color=c128 join=bevel cap=butt priority=20
     symbol name=nparkf-outline-s priority=6700 min_distance=20
     caption primary[height=10 color=c129 stroke=c087 dy=1 optional] priority=-3300
   z12
+    line width=1 color=c128 join=bevel cap=butt priority=20
     symbol name=nparkf-outline-s priority=6700 min_distance=12
     caption primary[height=10 color=c129 stroke=c087 dy=1 optional] priority=-3300
   z13
+    line width=1 color=c128 join=round cap=butt priority=20
     symbol name=nparkf-outline-m priority=6700 min_distance=12
-    caption primary[height=11 color=c129 stroke=c088 dy=1 optional] priority=-3300
+    path_text primary[height=11 color=c129 stroke=c088 dy=1] priority=6700
   z14
+    line width=1 color=c128 join=round cap=butt priority=20
     symbol name=nparkf-outline-m priority=6700 min_distance=12
-    caption primary[height=11 color=c129 stroke=c088 dy=1 optional] priority=-3300
+    path_text primary[height=11 color=c129 stroke=c088 dy=1] priority=6700
   z15
+    line width=1 color=c128 join=round cap=butt priority=20
     symbol name=nparkf-outline-m priority=6700
-    caption primary[height=11 color=c129 stroke=c088 dy=1 optional] priority=-3300
+    path_text primary[height=11 color=c129 stroke=c088 dy=1] priority=6700
   z16
+    line width=1 color=c128 join=round cap=round priority=20
     symbol name=nparkf-outline-m priority=6700
-    caption primary[height=11 color=c129 stroke=c088 dy=1 optional] priority=-3300
+    path_text primary[height=11 color=c129 stroke=c088 dy=1] priority=6700
   z17
+    line width=1 color=c128 join=round cap=round priority=20
     symbol name=nparkf-outline-m priority=6700
-    caption primary[height=12 color=c129 stroke=c088 dy=1 optional] priority=-3300
+    path_text primary[height=12 color=c129 stroke=c088 dy=1] priority=6700
+  z18
+    line width=1 color=c128 join=round cap=round priority=20
+    path_text primary[height=10 color=c129 stroke=c087] priority=6700
+  z19
+    line width=1 color=c128 join=round cap=round priority=20
+    path_text primary[height=10 color=c129 stroke=c087] priority=6700
+  z20
+    line width=1 color=c128 join=round cap=round priority=20
+    path_text primary[height=10 color=c129 stroke=c087] priority=6700
 type building
   z14
     area color=c131 priority=130

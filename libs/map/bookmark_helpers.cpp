@@ -327,6 +327,11 @@ std::string GetTrashDirectory()
   return trashDir;
 }
 
+std::string GetBookmarkPhotosDirectory()
+{
+  return base::JoinPath(GetBookmarksDirectory(), ".photos");
+}
+
 std::string RemoveInvalidSymbols(std::string const & name)
 {
   strings::UniString filtered;
@@ -521,6 +526,86 @@ static std::vector<std::string> GetFilePathsToLoadFromKmz(std::string const & fi
     LOG(LWARNING, ("Error unzipping file", filePath, e.Msg()));
   }
   return kmlFilePaths;
+}
+
+// True for map-data entries handled by the KML/GPX loaders, as opposed to assets like photos.
+static bool IsBookmarkDataFileInZip(std::string const & fileInZip)
+{
+  auto const ext = GetLowercaseFileExt(fileInZip);
+  return ext == kKmlExtension || ext == kGpxExtension || ext == kKmbExtension || ext == kGeoJsonExtension ||
+         ext == kJsonExtension;
+}
+
+// Rejects absolute paths and any ".." component to prevent Zip Slip when extracting entries to disk.
+static bool IsSafeRelativeZipPath(std::string const & path)
+{
+  if (path.empty() || path.front() == '/' || path.front() == '\\')
+    return false;
+  if (path.size() >= 2 && path[1] == ':')  // Windows drive letter, e.g. "C:".
+    return false;
+
+  size_t componentStart = 0;
+  for (size_t i = 0; i <= path.size(); ++i)
+  {
+    if (i == path.size() || path[i] == '/' || path[i] == '\\')
+    {
+      if (path.compare(componentStart, i - componentStart, "..") == 0)
+        return false;
+      componentStart = i + 1;
+    }
+  }
+  return true;
+}
+
+void ExtractBookmarkAssetsFromKmz(std::string const & kmzPath)
+{
+  // Photos (and any other non map-data assets) referenced by placemark descriptions live inside the
+  // KMZ next to doc.kml. Extract them into a shared photos directory, preserving their
+  // archive-relative paths, so relative <img src> paths in descriptions resolve against it.
+  // Note: assets are shared across imports and not garbage-collected when bookmarks are deleted.
+  try
+  {
+    ZipFileReader::FileList files;
+    ZipFileReader::FilesList(kmzPath, files);
+
+    auto const baseDir = GetBookmarkPhotosDirectory();
+    for (auto const & entry : files)
+    {
+      auto const & fileInZip = entry.first;
+      // Skip directory entries and map-data files (loaded separately as bookmarks/tracks).
+      if (fileInZip.empty() || fileInZip.back() == '/' || IsBookmarkDataFileInZip(fileInZip))
+        continue;
+
+      if (!IsSafeRelativeZipPath(fileInZip))
+      {
+        LOG(LWARNING, ("Skipping unsafe KMZ asset path", fileInZip, "in", kmzPath));
+        continue;
+      }
+
+      std::string relativePath = fileInZip;
+      std::replace(relativePath.begin(), relativePath.end(), '/', base::GetNativeSeparator());
+      auto const outPath = base::JoinPath(baseDir, relativePath);
+
+      if (!Platform::MkDirRecursively(base::GetDirectory(outPath)))
+      {
+        LOG(LWARNING, ("Can't create directory for KMZ asset", outPath));
+        continue;
+      }
+
+      try
+      {
+        ZipFileReader::UnzipFile(kmzPath, fileInZip, outPath);
+      }
+      catch (RootException const & e)
+      {
+        LOG(LWARNING, ("Error extracting KMZ asset", fileInZip, "from", kmzPath, e.Msg()));
+      }
+    }
+  }
+  catch (RootException const & e)
+  {
+    LOG(LWARNING, ("Error listing KMZ assets", kmzPath, e.Msg()));
+  }
 }
 
 static std::vector<std::string> GetFilePathsToLoadFromKmb(std::string const & filePath)

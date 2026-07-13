@@ -5,7 +5,15 @@
 
 #include "platform/platform.hpp"
 
+#include "coding/file_reader.hpp"
+#include "coding/file_writer.hpp"
+#include "coding/internal/file_data.hpp"
+#include "coding/zip_creator.hpp"
+
+#include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
+
+#include <string>
 
 UNIT_TEST(KMZ_UnzipTest)
 {
@@ -41,6 +49,62 @@ UNIT_TEST(KMZ_UnzipTest)
     TEST_ALMOST_EQUAL_ULPS(bm.GetPivot().y, 21.12480639056074, ("KML wrong org y!"));
     TEST_EQUAL(bm.GetScale(), 0, ("KML wrong scale!"));
   }
+}
+
+namespace
+{
+void WriteFile(std::string const & path, std::string const & content)
+{
+  FileWriter writer(path);
+  writer.Write(content.data(), content.size());
+}
+}  // namespace
+
+// A KMZ can bundle photos next to doc.kml, referenced by relative <img src> paths in placemark
+// descriptions. ExtractBookmarkAssetsFromKmz must extract those assets (but not the map-data files)
+// into the shared bookmark photos directory, preserving their archive-relative paths.
+UNIT_TEST(KMZ_ExtractPhotosTest)
+{
+  TEST(Platform::MkDirChecked(GetBookmarksDirectory()), ());
+
+  auto const & writableDir = GetPlatform().WritableDir();
+  std::string const kmlPath = base::JoinPath(writableDir, "om_kmz_photos_test_doc.kml");
+  std::string const imgPath = base::JoinPath(writableDir, "om_kmz_photos_test_photo.jpg");
+  std::string const kmzPath = base::JoinPath(writableDir, "om_kmz_photos_test.kmz");
+
+  std::string const kmlContent =
+      R"(<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://www.opengis.net/kml/2.2"><Document></Document></kml>)";
+  std::string const imgContent = "\xFF\xD8\xFF\xE0 not a real jpeg, just bytes";
+  std::string const photoInZip = "photos/1ea01b46-f885-4f68-b636/1210009_739326.jpg";
+
+  WriteFile(kmlPath, kmlContent);
+  WriteFile(imgPath, imgContent);
+
+  std::string const extractedPhoto =
+      base::JoinPath(GetBookmarkPhotosDirectory(), "photos", "1ea01b46-f885-4f68-b636", "1210009_739326.jpg");
+  std::string const extractedKml = base::JoinPath(GetBookmarkPhotosDirectory(), "doc.kml");
+
+  SCOPE_GUARD(cleanup, [&]()
+  {
+    base::DeleteFileX(kmlPath);
+    base::DeleteFileX(imgPath);
+    base::DeleteFileX(kmzPath);
+    base::DeleteFileX(extractedPhoto);
+    base::DeleteFileX(extractedKml);
+  });
+
+  TEST(CreateZipFromFiles({kmlPath, imgPath}, {"doc.kml", photoInZip}, kmzPath), ());
+
+  ExtractBookmarkAssetsFromKmz(kmzPath);
+
+  // The photo is extracted, preserving its archive-relative path.
+  TEST(Platform::IsFileExistsByFullPath(extractedPhoto), (extractedPhoto));
+  std::string extractedContent;
+  FileReader(extractedPhoto).ReadAsString(extractedContent);
+  TEST_EQUAL(extractedContent, imgContent, ());
+
+  // The map-data file (doc.kml) must NOT be copied into the photos directory.
+  TEST(!Platform::IsFileExistsByFullPath(extractedKml), (extractedKml));
 }
 
 UNIT_TEST(Multi_KML_KMZ_UnzipTest)

@@ -82,7 +82,6 @@ import app.organicmaps.widget.placepage.sections.PlacePageLinksFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageNotesFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageOpeningHoursFragment;
 import app.organicmaps.widget.placepage.sections.PlacePagePhoneFragment;
-import app.organicmaps.widget.placepage.sections.PlacePageProductsFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageTrackFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageTrackRecordingFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageWikipediaFragment;
@@ -103,7 +102,6 @@ public class PlacePageView extends Fragment
   private static final String NOTES_FRAGMENT_TAG = "NOTES_FRAGMENT_TAG";
   private static final String TRACK_FRAGMENT_TAG = "TRACK_FRAGMENT_TAG";
   private static final String TRACK_RECORDING_FRAGMENT_TAG = "TRACK_RECORDING_FRAGMENT_TAG";
-  private static final String PRODUCTS_FRAGMENT_TAG = "PRODUCTS_FRAGMENT_TAG";
   private static final String WIKIPEDIA_FRAGMENT_TAG = "WIKIPEDIA_FRAGMENT_TAG";
   private static final String PHONE_FRAGMENT_TAG = "PHONE_FRAGMENT_TAG";
   private static final String OPENING_HOURS_FRAGMENT_TAG = "OPENING_HOURS_FRAGMENT_TAG";
@@ -161,7 +159,6 @@ public class PlacePageView extends Fragment
   private Runnable mEducationalPopupRunnable;
   private View mEditPlace;
   private View mAddOrganisation;
-  private View mAddPlace;
   private View mEditTopSpace;
   private View mDetailsTopSpace;
   private ImageView mColorIcon;
@@ -360,8 +357,6 @@ public class PlacePageView extends Fragment
     mEditPlace.setOnClickListener(this);
     mAddOrganisation = mFrame.findViewById(R.id.ll__add_organisation);
     mAddOrganisation.setOnClickListener(this);
-    mAddPlace = mFrame.findViewById(R.id.ll__place_add);
-    mAddPlace.setOnClickListener(this);
     mEditTopSpace = mFrame.findViewById(R.id.edit_top_space);
     mDetailsTopSpace = mFrame.findViewById(R.id.details_top_space);
     latlon.setOnLongClickListener(this);
@@ -494,19 +489,6 @@ public class PlacePageView extends Fragment
   {
     updateViewFragment(PlacePageWikipediaFragment.class, WIKIPEDIA_FRAGMENT_TAG, R.id.place_page_wikipedia_fragment,
                        hasWikipediaEntry());
-  }
-
-  private boolean hasProductsEntry()
-  {
-    return Framework.nativeShouldShowProducts();
-  }
-
-  private void updateProductsView()
-  {
-    var hasProductsEntry = hasProductsEntry();
-
-    updateViewFragment(PlacePageProductsFragment.class, PRODUCTS_FRAGMENT_TAG, R.id.place_page_products_fragment,
-                       hasProductsEntry);
   }
 
   private void setTextAndColorizeSubtitle()
@@ -783,19 +765,16 @@ public class PlacePageView extends Fragment
 
     if (RoutingController.get().isNavigating() || RoutingController.get().isPlanning())
     {
-      UiUtils.hide(mEditPlace, mAddOrganisation, mAddPlace, mEditTopSpace);
+      UiUtils.hide(mEditPlace, mAddOrganisation, mEditTopSpace);
     }
     else
     {
       UiUtils.showIf(Editor.nativeShouldShowEditPlace(), mEditPlace);
       UiUtils.showIf(Editor.nativeShouldShowAddBusiness(), mAddOrganisation);
-      UiUtils.showIf(Editor.nativeShouldShowAddPlace(), mAddPlace);
       mEditPlace.setEnabled(Editor.nativeCanEditPlace());
       mAddOrganisation.setEnabled(Editor.nativeCanEditPlace());
-      mAddPlace.setEnabled(Editor.nativeCanEditPlace());
       TextView mTvEditPlace = mEditPlace.findViewById(R.id.tv__editor);
-      TextView mTvAddBusiness = mAddPlace.findViewById(R.id.tv__editor);
-      TextView mTvAddPlace = mAddPlace.findViewById(R.id.tv__editor);
+      TextView mTvAddBusiness = mAddOrganisation.findViewById(R.id.tv__editor);
       final int editPlaceButtonColor =
           Editor.nativeCanEditPlace()
               ? ContextCompat.getColor(getContext(),
@@ -803,10 +782,7 @@ public class PlacePageView extends Fragment
               : getResources().getColor(R.color.button_accent_text_disabled);
       mTvEditPlace.setTextColor(editPlaceButtonColor);
       mTvAddBusiness.setTextColor(editPlaceButtonColor);
-      mTvAddPlace.setTextColor(editPlaceButtonColor);
-      UiUtils.showIf(
-          UiUtils.isVisible(mEditPlace) || UiUtils.isVisible(mAddOrganisation) || UiUtils.isVisible(mAddPlace),
-          mEditTopSpace);
+      UiUtils.showIf(UiUtils.isVisible(mEditPlace) || UiUtils.isVisible(mAddOrganisation), mEditTopSpace);
     }
     final boolean isTrackOrRecording = mMapObject.isTrack() || mMapObject.isTrackRecording();
     final boolean isRelationTrack = mMapObject.isTrack() && ((Track) mMapObject).isRelationTrack();
@@ -814,7 +790,6 @@ public class PlacePageView extends Fragment
     UiUtils.hideIf(isTrackOrRecording, mFrame.findViewById(R.id.ll__place_open_in), mDetailsTopSpace);
     updateLinksView();
     updateOpeningHoursView();
-    updateProductsView();
     updateWikipediaView();
     updateNotesView();
     updatePhoneView();
@@ -901,11 +876,6 @@ public class PlacePageView extends Fragment
     ((MwmActivity) requireActivity()).showPositionChooserForEditor(true, true);
   }
 
-  private void addPlace()
-  {
-    ((MwmActivity) requireActivity()).showPositionChooserForEditor(false, true);
-  }
-
   /// @todo
   /// - Why ll__place_editor and ll__place_latlon check if (mMapObject == null)
 
@@ -932,8 +902,6 @@ public class PlacePageView extends Fragment
       ((MwmActivity) requireActivity()).showEditor();
     else if (id == R.id.ll__add_organisation)
       addOrganisation();
-    else if (id == R.id.ll__place_add)
-      addPlace();
     else if (id == R.id.ll__place_latlon)
     {
       // One native call: fetch the formats available here and advance to the next (wrapping). From an

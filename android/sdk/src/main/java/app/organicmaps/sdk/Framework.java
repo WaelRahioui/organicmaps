@@ -188,6 +188,9 @@ public class Framework
 
   public static native String nativeGetSettingsDir();
 
+  // Directory where photos embedded in imported KMZ archives are extracted.
+  public static native String nativeGetBookmarkPhotosDir();
+
   public static native String nativeGetWritableDir();
 
   public static native void nativeChangeWritableDir(String newPath);

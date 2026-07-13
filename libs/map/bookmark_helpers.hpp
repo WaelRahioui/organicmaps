@@ -110,6 +110,9 @@ inline constexpr size_t kMaxFileNameLength = 200;
 
 std::string GetBookmarksDirectory();
 std::string GetTrashDirectory();
+// Shared directory where photos (and other assets) embedded in imported KMZ archives are extracted,
+// so that relative <img src> paths in placemark descriptions can be resolved for display.
+std::string GetBookmarkPhotosDirectory();
 std::string RemoveInvalidSymbols(std::string const & name);
 // Truncates `name` (UTF-8) so its on-disk length stays within kMaxFileNameLength.
 // On Apple platforms a supplementary-plane codepoint counts as 2 UTF-16 units
@@ -128,6 +131,12 @@ std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, FileType fi
 std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, FileType fileType);
 
 std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePath);
+
+// Extracts non map-data files (photos and other assets referenced by placemark descriptions) from a
+// KMZ archive into GetBookmarkPhotosDirectory(), preserving their archive-relative paths so that
+// relative <img src> paths in descriptions resolve against that directory. Safe to call repeatedly.
+void ExtractBookmarkAssetsFromKmz(std::string const & kmzPath);
+
 std::string GetLowercaseFileExt(std::string const & filePath);
 std::optional<FileType> GetFileType(std::string const & filePath);
 

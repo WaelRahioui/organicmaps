@@ -159,8 +159,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Nullable
   private OnmapDownloader mOnmapDownloader;
 
-  private String mDonatesUrl;
-
   private int mNavBarHeight;
 
   private RoutingPlanViewModel mRoutingPlanViewModel;
@@ -1881,23 +1879,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  public void onAddPlaceOptionSelected()
-  {
-    closeFloatingPanels();
-    showPositionChooserForEditor(false, false);
-  }
-
   public void onDownloadMapsOptionSelected()
   {
     RoutingController.get().cancel();
     closeFloatingPanels();
     showDownloader(false);
-  }
-
-  public void onDonateOptionSelected()
-  {
-    Utils.openUrl(this, mDonatesUrl);
-    Framework.nativeDidShowDonationPage();
   }
 
   public void onSettingsOptionSelected()
@@ -1997,13 +1983,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (id.equals(MAIN_MENU_ID))
     {
       ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
-      items.add(new MenuBottomSheetItem(R.string.placepage_add_place_button, R.drawable.ic_plus,
-                                        this::onAddPlaceOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.download_maps, R.drawable.ic_download, getDownloadMapsCounter(),
                                         this::onDownloadMapsOptionSelected));
-      mDonatesUrl = Utils.getDonateUrl(getApplicationContext());
-      if (!TextUtils.isEmpty(mDonatesUrl))
-        items.add(new MenuBottomSheetItem(R.string.donate, R.drawable.ic_donate, this::onDonateOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.settings, R.drawable.ic_settings, this::onSettingsOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.start_track_recording, R.drawable.ic_track_recording_off, -1,
                                         this::onTrackRecordingOptionSelected));

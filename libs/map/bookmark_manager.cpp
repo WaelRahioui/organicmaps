@@ -2185,6 +2185,11 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
 
     auto collection = std::make_shared<KMLDataCollection>();
 
+    // Extract embedded photos/assets from a KMZ while the original archive is still available,
+    // so relative <img src> paths in placemark descriptions can be resolved for display.
+    if (auto const fileType = GetFileType(filePath); fileType && *fileType == FileType::Kmz)
+      ExtractBookmarkAssetsFromKmz(filePath);
+
     // Convert KMZ/KMB files to temp KML file and copy KML/GPX/GeoJson to temp file.
     for (auto const & fileToLoad : GetKMLOrGPXFilesPathsToLoad(filePath))
     {

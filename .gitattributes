@@ -44,3 +44,4 @@
 *.slf     binary
 *.borders binary
 *.pdf     binary
+*.poly text eol=lf

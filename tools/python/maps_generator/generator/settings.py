@@ -136,9 +136,9 @@ OSM_TOOL_FILTER = "osmfilter"
 OSM_TOOL_UPDATE = "osmupdate"
 OSM_TOOLS_CC = "cc"
 OSM_TOOLS_CC_FLAGS = [
+    "-std=gnu11",
     "-O3",
 ]
-
 # Planet and coasts:
 PLANET_COASTS_GEOM_URL = os.path.join(PLANET_COASTS_URL, "latest_coasts.geom")
 PLANET_COASTS_RAWGEOM_URL = os.path.join(PLANET_COASTS_URL, "latest_coasts.rawgeom")

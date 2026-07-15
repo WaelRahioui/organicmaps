@@ -5,6 +5,8 @@
 #include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
+#include "routing/routing_helpers.hpp"
+
 #include "base/assert.hpp"
 #include "base/geo_object_id.hpp"
 
@@ -109,7 +111,26 @@ void RepresentationLayer::Handle(FeatureBuilder & fb)
   {
     switch (geomType)
     {
-    case GeomType::Area: HandleArea(fb, params); break;
+    case GeomType::Area:
+    {
+      HandleArea(fb, params);
+      // Large boundaries (national parks, national forests / BLM protected areas, etc.) are
+      // usually mapped as relations, so - unlike the closed-way branch above - they'd get only
+      // an areal feature and no outline line. Line and pathtext drules only apply to linear
+      // features, so without a line feature there's no boundary line and no name drawn along the
+      // border. Emit an additional linear feature of the outer ring (only when the type actually
+      // has line drules, i.e. CanBeLine) so those drules can render, mirroring the closed-way path.
+      //
+      // Skip road-typed relations: cross-mwm / routing map feature ids to OSM *ways* only.
+      // Emitting a highway=* relation outline (e.g. multipolygon highway=path) creates a Line
+      // with a relation osm id and trips CHECK in CalcCrossMwmTransitions.
+      if (CanBeLine(params) && !routing::IsRoad(fb.GetTypes()))
+      {
+        auto featureLine = MakeLine(fb);
+        LayerBase::Handle(featureLine);
+      }
+      break;
+    }
     // We transform place relations into points (see BuildFromRelation).
     case GeomType::Point: LayerBase::Handle(fb); break;
     default: UNREACHABLE(); break;

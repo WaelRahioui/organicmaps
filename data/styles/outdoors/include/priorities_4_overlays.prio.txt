@@ -102,7 +102,7 @@ boundary-protected_area-2                           # icon z10-17 (also has capt
 boundary-protected_area-3                           # icon z10-17 (also has caption(optional) z11-17)
 boundary-protected_area-4                           # icon z10-17 (also has caption(optional) z11-17)
 boundary-protected_area-5                           # icon z10-17 (also has caption(optional) z11-17)
-boundary-protected_area-6                           # icon z10-17 and pathtext z13- (also has caption(optional) z11-12, line z8-)
+boundary-protected_area-6                           # icon z10-17 and pathtext z13- (also has caption(optional) z11-12, line z8-, area z8-17)
 leisure-nature_reserve                              # icon z10-17 and caption z9 (also has caption(optional) z11-17, area z8-17)
 === 6700
 
@@ -1361,7 +1361,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # boundary-protected_area-3                         # caption(optional) z11-17 (also has icon z10-17)
 # boundary-protected_area-4                         # caption(optional) z11-17 (also has icon z10-17)
 # boundary-protected_area-5                         # caption(optional) z11-17 (also has icon z10-17)
-# boundary-protected_area-6                         # caption(optional) z11-12 (also has icon z10-17, pathtext z13-, line z8-)
+# boundary-protected_area-6                         # caption(optional) z11-12 (also has icon z10-17, pathtext z13-, line z8-, area z8-17)
 # leisure-nature_reserve                            # caption(optional) z11-17 (also has icon z10-17, caption z9, area z8-17)
 # === -3300
 

@@ -65,17 +65,17 @@ highway-footway-area                                # area z14- (also has line z
 leisure-track-area                                  # area z15- (also has caption z16-)
 === 160
 
-leisure-golf_course                                 # area z12- (also has icon z15-, caption(optional) z17-)
-leisure-miniature_golf                              # area z14- (also has icon z17-, caption(optional) z17-)
+leisure-golf_course                                 # WARNING: no drule defined for the priority (also has icon z15-, caption(optional) z17-)
+leisure-miniature_golf                              # WARNING: no drule defined for the priority (also has icon z17-, caption(optional) z17-)
 === 140
 
-landuse-flowerbed                                   # area z16-
-natural-scrub                                       # area z12-
+landuse-flowerbed                                   # WARNING: no style defined (the type will be not included into map data)
+natural-scrub                                       # WARNING: no style defined (the type will be not included into map data)
 === 130
 
-landuse-grass                                       # area z12-
-natural-grassland                                   # area z12-
-natural-heath                                       # area z12-
+landuse-grass                                       # WARNING: no style defined (the type will be not included into map data)
+natural-grassland                                   # WARNING: no style defined (the type will be not included into map data)
+natural-heath                                       # WARNING: no style defined (the type will be not included into map data)
 === 120
 
 area:highway-footway                                # area z14- (also has caption z15-)
@@ -102,36 +102,36 @@ amenity-parking-street_side-fee                     # area z17- (also has icon z
 amenity-parking-street_side-private                 # area z17- (also has icon z18-, caption(optional) z18-)
 === 100
 
-landuse-farmyard                                    # area z10- (also has caption z15-)
+landuse-farmyard                                    # WARNING: no drule defined for the priority (also has caption z15-)
 === 81
 
-landuse-allotments                                  # area z12- (also has caption z15-)
-landuse-farmland                                    # area z10- (also has caption z15-)
-landuse-field                                       # area z12-
-landuse-meadow                                      # area z12-
-landuse-orchard                                     # area z12- (also has caption z15-)
-landuse-recreation_ground                           # area z12- (also has caption z15-)
-landuse-village_green                               # area z12-
-landuse-vineyard                                    # area z12- (also has caption z15-)
+landuse-allotments                                  # WARNING: no drule defined for the priority (also has caption z15-)
+landuse-farmland                                    # WARNING: no drule defined for the priority (also has caption z15-)
+landuse-field                                       # WARNING: no style defined (the type will be not included into map data)
+landuse-meadow                                      # WARNING: no style defined (the type will be not included into map data)
+landuse-orchard                                     # WARNING: no drule defined for the priority (also has caption z15-)
+landuse-recreation_ground                           # WARNING: no drule defined for the priority (also has caption z15-)
+landuse-village_green                               # WARNING: no style defined (the type will be not included into map data)
+landuse-vineyard                                    # WARNING: no drule defined for the priority (also has caption z15-)
 leisure-pitch                                       # area z15- (also has icon z17-, caption(optional) z17-)
-natural-bare_rock                                   # area z12- (also has caption z14-)
-natural-scree                                       # area z11-
-natural-shingle                                     # area z12-
+natural-bare_rock                                   # WARNING: no drule defined for the priority (also has caption z14-)
+natural-scree                                       # WARNING: no style defined (the type will be not included into map data)
+natural-shingle                                     # WARNING: no style defined (the type will be not included into map data)
 === 80
 
-landuse-plant_nursery                               # area z12- (also has icon z17-, caption(optional) z17-)
-leisure-garden                                      # area z12- (also has icon z16-, caption(optional) z16-)
-leisure-garden-residential                          # area z12-
-leisure-park                                        # area z10- (also has icon z14-, caption(optional) z14-)
-leisure-park-no-access                              # area z10- (also has icon z14-, caption(optional) z14-)
-leisure-park-permissive                             # area z10- (also has icon z14-, caption(optional) z14-)
-leisure-park-private                                # area z10- (also has icon z14-, caption(optional) z14-)
+landuse-plant_nursery                               # WARNING: no drule defined for the priority (also has icon z17-, caption(optional) z17-)
+leisure-garden                                      # WARNING: no drule defined for the priority (also has icon z16-, caption(optional) z16-)
+leisure-garden-residential                          # WARNING: no style defined (the type will be not included into map data)
+leisure-park                                        # WARNING: no drule defined for the priority (also has icon z14-, caption(optional) z14-)
+leisure-park-no-access                              # WARNING: no drule defined for the priority (also has icon z14-, caption(optional) z14-)
+leisure-park-permissive                             # WARNING: no drule defined for the priority (also has icon z14-, caption(optional) z14-)
+leisure-park-private                                # WARNING: no drule defined for the priority (also has icon z14-, caption(optional) z14-)
 === 70
 
-landuse-forest                                      # area z10- (also has icon z13-, caption(optional) z14-)
-landuse-forest-coniferous                           # area z10- (also has icon z13-, caption(optional) z14-)
-landuse-forest-deciduous                            # area z10- (also has icon z13-, caption(optional) z14-)
-landuse-forest-mixed                                # area z10- (also has icon z13-, caption(optional) z14-)
+landuse-forest                                      # WARNING: no drule defined for the priority (also has icon z13-, caption(optional) z14-)
+landuse-forest-coniferous                           # WARNING: no drule defined for the priority (also has icon z13-, caption(optional) z14-)
+landuse-forest-deciduous                            # WARNING: no drule defined for the priority (also has icon z13-, caption(optional) z14-)
+landuse-forest-mixed                                # WARNING: no drule defined for the priority (also has icon z13-, caption(optional) z14-)
 === 60
 
 landuse-construction                                # area z14- (also has caption z15-)
@@ -157,15 +157,15 @@ amenity-school                                      # area z15- (also has icon z
 amenity-university                                  # area z14- (also has icon z14-, caption(optional) z14-)
 === 40
 
-aeroway-aerodrome                                   # area z10- (also has icon z14-, caption(optional) z14-)
-aeroway-aerodrome-international                     # area z10- (also has icon z7-, caption(optional) z10-)
+aeroway-aerodrome                                   # WARNING: no drule defined for the priority (also has icon z14-, caption(optional) z14-)
+aeroway-aerodrome-international                     # WARNING: no drule defined for the priority (also has icon z7-, caption(optional) z10-)
 landuse-education                                   # area z15-
-leisure-beach_resort                                # area z10- (also has icon z16-, caption(optional) z16-)
-natural-beach                                       # area z10- (also has caption z15-)
-natural-beach-gravel                                # area z10- (also has caption z15-)
-natural-beach-sand                                  # area z10- (also has caption z15-)
-natural-desert                                      # area z1- (also has caption z14-)
-natural-glacier                                     # area z1-
+leisure-beach_resort                                # WARNING: no drule defined for the priority (also has icon z16-, caption(optional) z16-)
+natural-beach                                       # WARNING: no drule defined for the priority (also has caption z15-)
+natural-beach-gravel                                # WARNING: no drule defined for the priority (also has caption z15-)
+natural-beach-sand                                  # WARNING: no drule defined for the priority (also has caption z15-)
+natural-desert                                      # WARNING: no drule defined for the priority (also has caption z14-)
+natural-glacier                                     # WARNING: no style defined (the type will be not included into map data)
 === 30
 
 natural-land                                        # area z1-

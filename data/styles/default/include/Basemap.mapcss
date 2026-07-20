@@ -116,16 +116,16 @@ area|z16-[landuse=flowerbed],
 {fill-opacity: 1;}
 
 area|z10-12[leisure=park],
-{fill-color: @green0;}
+{fill-color: none;}
 area|z13-15[leisure=park],
-{fill-color: @green1;}
+{fill-color: none;}
 area|z16-[leisure=park],
-{fill-color: @green2;}
+{fill-color: none;}
 area|z16-[landuse=flowerbed],
-{fill-color: @flowers;}
+{fill-color: none;}
 
 area|z14-15[landuse=grass],
-{fill-color: @green0;}
+{fill-color: none;}
 area|z16-[landuse=grass],
 area|z14-15[natural=grassland],
 area|z14-[leisure=golf_course],
@@ -138,29 +138,29 @@ area|z14-[landuse=vineyard],
 area|z14-[landuse=recreation_ground],
 area|z14-[landuse=village_green],
 area|z14-[landuse=field],
-{fill-color: @green1;}
+{fill-color: none;}
 area|z16-[natural=grassland],
-{fill-color: @green1b;}
+{fill-color: none;}
 area|z12[leisure=garden],
-{fill-color: @green2;}
+{fill-color: none;}
 area|z13[leisure=garden],
-{fill-color: @green3;}
+{fill-color: none;}
 area|z14[leisure=garden],
-{fill-color: @green4;}
+{fill-color: none;}
 area|z15[leisure=garden],
-{fill-color: @green5;}
+{fill-color: none;}
 area|z16-[leisure=garden],
-{fill-color: @forest;}
+{fill-color: none;}
 
 area|z10-[landuse=forest],
-{fill-color: @green5;}
+{fill-color: none;}
 
 area|z12-[leisure=garden][garden:type=residential],
-{fill-color: @green0;}
+{fill-color: none;}
 area|z16-[leisure=garden][garden:type=residential],
-{fill-color: @green1;}
+{fill-color: none;}
 area|z17-[leisure=garden][garden:type=residential],
-{fill-color: @green2;}
+{fill-color: none;}
 
 area|z12-13[landuse=grass],
 area|z12-13[natural=grassland],
@@ -173,13 +173,13 @@ area|z12-13[landuse=vineyard],
 area|z12-13[landuse=recreation_ground],
 area|z12-13[landuse=village_green],
 area|z12-13[landuse=field],
-{fill-color: @green0;}
+{fill-color: none;}
 
 area|z12-[natural=scrub],
-{fill-color: @green2;}
+{fill-color: none;}
 
 area|z12-[landuse=meadow],
-{fill-color: @green1;}
+{fill-color: none;}
 
 /* Next types are hardcoded to have a hatching-style fill, see drape_frontend/stylist.cpp */
 area|z8-17[leisure=nature_reserve],
@@ -220,10 +220,10 @@ area|z12-[amenity=prison]
 
 area|z11-[natural=scree],
 area|z12-[natural=shingle],
-{fill-color: @scree;}
+{fill-color: none;}
 
 area|z12-[natural=bare_rock],
-{fill-color: @barerock;}
+{fill-color: none;}
 
 /* Select width ~ highway=primary */
 line|z17-[natural=tree_row],
@@ -243,14 +243,14 @@ area|z10-[leisure=beach_resort],
 {fill-opacity: 1;}
 
 area|z0-[natural=glacier]
-{fill-color: @glacier;}
+{fill-color: none;}
 
 area|z10-[natural=beach],
 area|z10-[leisure=beach_resort],
-{fill-color: @beach;}
+{fill-color: none;}
 
 area|z0-[natural=desert],
-{fill-color: @desert;}
+{fill-color: none;}
 
 /* 6.WATER */
 
@@ -299,7 +299,7 @@ area|z12-[natural=water][water=wastewater],
 {fill-color: @water_bad;}
 
 area|z11-[natural=wetland]
-{fill-color: @wetland;}
+{fill-color: none;}
 
 /* 6.2 Line water(river,canal etc.) */
 
@@ -472,22 +472,22 @@ area|z14-[highway=services],
 
 area|z10[aeroway=aerodrome][aerodrome=international],
 area|z10[aeroway=aerodrome],
-{fill-color: @aerodrome0;}
+{fill-color: none;}
 area|z11[aeroway=aerodrome][aerodrome=international],
 area|z11[aeroway=aerodrome],
-{fill-color: @aerodrome1;}
+{fill-color: none;}
 area|z12-[aeroway=aerodrome][aerodrome=international],
 area|z12-[aeroway=aerodrome]
-{fill-color: @aerodrome2;}
+{fill-color: none;}
 area|z13[aeroway=aerodrome][aerodrome=international],
 area|z13[aeroway=aerodrome]
-{fill-color: @aerodrome3;}
+{fill-color: none;}
 area|z14[aeroway=aerodrome][aerodrome=international],
 area|z14[aeroway=aerodrome]
-{fill-color: @aerodrome4;}
+{fill-color: none;}
 area|z15-19[aeroway=aerodrome][aerodrome=international],
 area|z15-19[aeroway=aerodrome]
-{fill-color: @aerodrome5;}
+{fill-color: none;}
 
 
 /* 7.7 Religion */
@@ -497,10 +497,10 @@ area|z15-[landuse=religious]
 
 /* 7.8 Agricultural */
 area|z10-[landuse=farmland],
-{fill-color: @farmland; fill-opacity: 1;}
+{fill-color: none;}
 
 area|z10-[landuse=farmyard],
-{fill-color: @farmyard; fill-opacity: 1;}
+{fill-color: none;}
 /* Parking */
 
 area|z15-[amenity=parking],

@@ -327,6 +327,11 @@ std::string GetTrashDirectory()
   return trashDir;
 }
 
+std::string GetBookmarkPhotosDirectory()
+{
+  return base::JoinPath(GetBookmarksDirectory(), ".photos");
+}
+
 std::string RemoveInvalidSymbols(std::string const & name)
 {
   strings::UniString filtered;
@@ -521,6 +526,79 @@ static std::vector<std::string> GetFilePathsToLoadFromKmz(std::string const & fi
     LOG(LWARNING, ("Error unzipping file", filePath, e.Msg()));
   }
   return kmlFilePaths;
+}
+
+static bool IsBookmarkDataFileInZip(std::string const & fileInZip)
+{
+  auto const ext = GetLowercaseFileExt(fileInZip);
+  return ext == kKmlExtension || ext == kGpxExtension || ext == kKmbExtension || ext == kGeoJsonExtension ||
+         ext == kJsonExtension;
+}
+
+static bool IsSafeRelativeZipPath(std::string const & path)
+{
+  if (path.empty() || path.front() == '/' || path.front() == '\\')
+    return false;
+  if (path.size() >= 2 && path[1] == ':')
+    return false;
+
+  size_t componentStart = 0;
+  for (size_t i = 0; i <= path.size(); ++i)
+  {
+    if (i == path.size() || path[i] == '/' || path[i] == '\\')
+    {
+      if (path.compare(componentStart, i - componentStart, "..") == 0)
+        return false;
+      componentStart = i + 1;
+    }
+  }
+  return true;
+}
+
+void ExtractBookmarkAssetsFromKmz(std::string const & kmzPath)
+{
+  try
+  {
+    ZipFileReader::FileList files;
+    ZipFileReader::FilesList(kmzPath, files);
+
+    auto const baseDir = GetBookmarkPhotosDirectory();
+    for (auto const & entry : files)
+    {
+      auto const & fileInZip = entry.first;
+      if (fileInZip.empty() || fileInZip.back() == '/' || IsBookmarkDataFileInZip(fileInZip))
+        continue;
+
+      if (!IsSafeRelativeZipPath(fileInZip))
+      {
+        LOG(LWARNING, ("Skipping unsafe KMZ asset path", fileInZip, "in", kmzPath));
+        continue;
+      }
+
+      std::string relativePath = fileInZip;
+      std::replace(relativePath.begin(), relativePath.end(), '/', base::GetNativeSeparator());
+      auto const outPath = base::JoinPath(baseDir, relativePath);
+
+      if (!Platform::MkDirRecursively(base::GetDirectory(outPath)))
+      {
+        LOG(LWARNING, ("Can't create directory for KMZ asset", outPath));
+        continue;
+      }
+
+      try
+      {
+        ZipFileReader::UnzipFile(kmzPath, fileInZip, outPath);
+      }
+      catch (RootException const & e)
+      {
+        LOG(LWARNING, ("Error extracting KMZ asset", fileInZip, "from", kmzPath, e.Msg()));
+      }
+    }
+  }
+  catch (RootException const & e)
+  {
+    LOG(LWARNING, ("Error listing KMZ assets", kmzPath, e.Msg()));
+  }
 }
 
 static std::vector<std::string> GetFilePathsToLoadFromKmb(std::string const & filePath)

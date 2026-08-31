@@ -3,6 +3,7 @@ package app.organicmaps.widget.placepage.sections
 import android.annotation.SuppressLint
 import android.app.KeyguardManager
 import android.content.Context
+import android.net.Uri
 import android.os.Build
 import android.text.Layout
 import android.text.Spannable
@@ -31,12 +32,17 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import app.organicmaps.R
+import app.organicmaps.sdk.Framework
 import app.organicmaps.sdk.util.NetworkPolicy
 import app.organicmaps.sdk.util.StringUtils
 import app.organicmaps.sdk.util.log.Logger
 import app.organicmaps.util.UiUtils
 import app.organicmaps.util.Utils
 import app.organicmaps.widget.StackedButtonDialogFragment
+import java.io.ByteArrayInputStream
+import java.io.File
+import java.io.FileInputStream
+import java.io.IOException
 import java.util.Locale
 import kotlin.math.roundToInt
 import org.json.JSONException
@@ -259,7 +265,33 @@ class ExpandableNotesView @JvmOverloads constructor(
 
     private fun loadHtmlIntoWebView(webView: WebView, html: String) {
         val themedHtml = buildHtml(html)
-        webView.loadDataWithBaseURL(null, themedHtml, Utils.TEXT_HTML, "UTF-8", null)
+        webView.loadDataWithBaseURL(PHOTO_BASE_URL, themedHtml, Utils.TEXT_HTML, "UTF-8", null)
+    }
+
+    private val photosDir: File? by lazy {
+        try {
+            Framework.nativeGetBookmarkPhotosDir().takeIf { it.isNotEmpty() }?.let { File(it) }
+        } catch (e: Exception) {
+            Logger.w(TAG, "Failed to resolve bookmark photos directory", e)
+            null
+        }
+    }
+
+    private fun serveLocalPhoto(url: Uri): WebResourceResponse {
+        val emptyResponse = WebResourceResponse("text/plain", "UTF-8", ByteArrayInputStream(ByteArray(0)))
+        val dir = photosDir ?: return emptyResponse
+        val relativePath = url.path?.trimStart('/')?.takeIf { it.isNotEmpty() } ?: return emptyResponse
+        val file = File(dir, relativePath)
+        try {
+            val canonicalDir = dir.canonicalPath
+            val canonicalFile = file.canonicalPath
+            val insidePhotosDir =
+                canonicalFile == canonicalDir || canonicalFile.startsWith(canonicalDir + File.separator)
+            if (!insidePhotosDir || !file.isFile) return emptyResponse
+            return WebResourceResponse(guessImageMimeType(file.name), null, FileInputStream(file))
+        } catch (e: IOException) {
+            return emptyResponse
+        }
     }
 
     private fun clearInternal() {
@@ -308,6 +340,7 @@ class ExpandableNotesView @JvmOverloads constructor(
                 override fun shouldInterceptRequest(view: WebView, request: WebResourceRequest): WebResourceResponse? {
                     val scheme = request.url.scheme?.lowercase(Locale.ROOT) ?: return null
                     if (scheme != "http" && scheme != "https") return null
+                    if (PHOTO_HOST.equals(request.url.host, ignoreCase = true)) return serveLocalPhoto(request.url)
                     if (networkAllowed) return null
                     return WebResourceResponse("text/plain", "UTF-8", null)
                 }
@@ -472,9 +505,23 @@ class ExpandableNotesView @JvmOverloads constructor(
             """</style></head><body>$userHtml</body></html>"""
     }
 
+    private fun guessImageMimeType(fileName: String): String =
+        when (fileName.substringAfterLast('.', "").lowercase(Locale.ROOT)) {
+            "jpg", "jpeg" -> "image/jpeg"
+            "png" -> "image/png"
+            "gif" -> "image/gif"
+            "webp" -> "image/webp"
+            "bmp" -> "image/bmp"
+            "svg" -> "image/svg+xml"
+            else -> "application/octet-stream"
+        }
+
     companion object {
         private const val TAG = "ExpandableNotesView"
         private const val COLLAPSED_LINES = 3
+
+        private const val PHOTO_HOST = "kmz-photos.omaps.local"
+        private const val PHOTO_BASE_URL = "https://$PHOTO_HOST/"
 
         private val HTML_DOCUMENT_REGEX = Regex(
             """^\s*(?:<!doctype\s+html[^>]*>\s*)?<html\b""",

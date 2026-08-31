@@ -1203,6 +1203,11 @@ JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetSettingsDir(JNIEnv
   return jni::ToJavaString(env, GetPlatform().SettingsDir().c_str());
 }
 
+JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetBookmarkPhotosDir(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, GetBookmarkPhotosDirectory());
+}
+
 JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetDataFileExt(JNIEnv * env, jclass)
 {
   return jni::ToJavaString(env, DATA_FILE_EXTENSION);
